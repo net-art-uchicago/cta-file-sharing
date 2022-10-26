@@ -1,0 +1,23 @@
+{
+  "name": "cta-file-sharing",
+  "version": "1.0.0",
+  "description": "a collaborative artware project by Media Art and Design students at the University of Chicago.",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/net-art-uchicago/cta-file-sharing.git"
+  },
+  "author": "",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/net-art-uchicago/cta-file-sharing/issues"
+  },
+  "homepage": "https://github.com/net-art-uchicago/cta-file-sharing#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
+  }
+}
