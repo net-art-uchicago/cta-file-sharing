@@ -7,8 +7,4 @@ router.get('/api/cta', async (req, res) => {
     res.json(response.data)
 })
 
-router.get('/api/example', (req, res) => {
-  res.json({ status: 'success', message: 'this is an example' })
-})
-
 module.exports = router
