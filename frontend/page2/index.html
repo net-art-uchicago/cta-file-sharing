@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="'utf-8">
+        <title>Poems Poems Poems</title>
+    </head>
+
+    <body>
+        <main>
+            <div id="title">poems!!</div>
+            <div id="poem"></div>
+            <script>
+
+                getPoems()
+
+                function getPoems () {
+                    const req = { method: 'GET'}
+                    fetch('poems.json', req)
+                        .then(res => res.json())
+                        .then(data => appendData(data))
+                        .catch(err => console.log('error: ' + err))
+                }  
+
+                function appendData (data) {
+                    const mainCont = document.querySelector("poem")
+
+                    for (let i = 0; i < data.length; i++){
+                        //let div = document.createElement("div");
+                        //div.innerHTML = 
+                        console.log(`${data[i].poem}...signed ${data[i].author}\n
+                                written ${data[i].date} at ${data[i].lat}&${data[i].long}`);
+                        ///mainCont.appendChild(div)
+                    }
+                }
+            </script>  
+        </main>
+    </body>
+</html>
