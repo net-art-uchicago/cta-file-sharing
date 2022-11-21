@@ -97,11 +97,9 @@ footer div {
 }
 .icon {
     height: 5vh;
-    /* padding: 2.5vh 20vw 0 20vw; */
-    /* display: inline; */
     line-height: 10vh;
 }
 footer div a {
     width: 50vw;
-    padding: 2% 0 0 0;
+    padding: 2.5% 0 0 0;
 }
