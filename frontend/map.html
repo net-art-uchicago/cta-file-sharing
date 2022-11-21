@@ -25,14 +25,13 @@
             function add_markers(map) {
                 const user = "someone"
                 const timestamp = "12:45"
-                const mood = "sad"
                 const message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
                 // Create a new marker.
                 //first create a div to contain the text
                 for (i=1;i<=20;i++){
                 const marker = new mapboxgl.Marker({color: "rgb(167, 60, 113)"})
                 .setLngLat([defLong+Math.random()/50-0.01, defLat+Math.random()/50-0.01])
-                .setPopup(new mapboxgl.Popup().setHTML(`<div class="usr">${user}</div><div class="time">${timestamp}</div><div class="msg ${mood}">${message}</div>`))
+                .setPopup(new mapboxgl.Popup().setHTML(`<div class="usr">${user}</div><div class="time">${timestamp}</div><div class="msg">${message}</div>`))
                 .addTo(map)
                 }
             }
