@@ -20,8 +20,8 @@ const lst_routes = async () => {
 const stops_coordinates = async() => {
     const stops = {}
     const directions = ['North', 'South', 'East', 'West']
-    for (let route = 0; route < lst_routes.length; i++) {
-        for (let dir = 0; dir < directions.length; x++) {
+    for (let route = 0; route < lst_routes.length; route++) {
+        for (let dir = 0; dir < directions.length; dir++) {
             const coordinate = await fetch ('https://ctabustracker.com/bustime/api/v3/getstops?key=x7L9d2WQ6qvyvBeSkKtAjDmFH&rt=${route}&dir=${dir}format=json')
             if (coordinate) {
                 stops[route] = (coordinate['lat'], coordinate['lon'])
