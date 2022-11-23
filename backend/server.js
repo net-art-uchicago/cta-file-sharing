@@ -5,6 +5,8 @@ const express = require('express')
 const app = express()
 const port = process.argv[2] || 80
 
+const REST_API = require('./REST-API.js')
+app.use(REST_API)
 const CTA_Handler = require('./CTA-Handler.js')
 app.use(CTA_Handler)
 
