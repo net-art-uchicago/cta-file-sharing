@@ -4,9 +4,16 @@ const path = require('path')
 
 const main = async () => {
   const res = await axios('https://data.cityofchicago.org/api/views/qs84-j7wh/rows.json?accessType=DOWNLOAD')
+  //res was returned as a nested array
   const stops = res.data.data.map((stop) => {
+    //stops gets through nested array to just have an array of arrays, each array has 
+    //2 objects: a coordinate (lat and lon), and bus route numbers associated with
+    //stop location
     const loc = stop[8].slice(7, -1).split(' ').map((point) => parseFloat(point))
+    //loc just making coordinates a float, not a string
     const routes = (stop[14] === null) ? [] : stop[14].split(',')
+    //line 14 counts for if there are no routes associated with a stop, makes it 
+    //empty array
     return { loc, routes }
   })
 
