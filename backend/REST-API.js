@@ -2,23 +2,20 @@ const express = require('express')
 const router = express.Router()
 const bodyParser = require('body-parser')
 
+// const fs = require('fs')
+
 router.use(bodyParser.json())
 
-/**
- * req should be a json Object
- * check req.headers -> Content-Type: application/json
- * actual data recieved: req.body
- * 
- * response should be in json
- * 
- */
-
-
 router.post('/api/add-poem', (req, res) => {
-  console.log(req.body)
+  // TODO: can let this be a JSON object as required
+  addPoem(JSON.stringify(req.body))
 
-  
+  // addPoem does not return anything hence post request will return success each time
+  res.json(
+    {
+      message: 'success'
+    }
+  )
 })
-
 
 module.exports = router
