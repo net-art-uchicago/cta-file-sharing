@@ -1,10 +1,17 @@
-const ex = { poem: 'a', date: 1, author: 'a', lat: 1, long: 1, route: 1 }
+const testExample = {
+  poem: 'a',
+  date: 1,
+  author: 'a',
+  lat: 1,
+  long: 1,
+  route: 1
+}
 
 function validate (obj) {
   let pass = true
-  for (const key in ex) {
+  for (const key in testExample) {
     if (!obj[key]) pass = false
-    else if (typeof obj[key] !== typeof ex[key]) pass = false
+    else if (typeof obj[key] !== typeof testExample[key]) pass = false
   }
   return pass
 }
@@ -16,7 +23,7 @@ function addPoem (poem) {
     return {
       error: 'data failed validation',
       recieved: poem,
-      expected: ex
+      expected: testExample
     }
   }
 }
