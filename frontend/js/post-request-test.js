@@ -2,11 +2,12 @@ postTest()
 
 function postTest () {
   const testData = {
-    datetime: 1668544391012, // number, unicode timestamp
-    location: [41.78868316205326, -87.59874232864101], // Array of GPS coordinates
-    text: 'an example poem', // string
-    author: 'Bobby Bob', // string,
-    route: 172 // number, a bus route
+    poem: 'a',
+    date: 1,
+    author: 'a',
+    lat: 1,
+    long: 1,
+    route: 1
   }
 
   const url = 'api/add-poem'

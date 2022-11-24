@@ -6,12 +6,12 @@ const addPoem = require('./rest-api-test-new-data.js')
 router.use(bodyParser.json())
 
 router.post('/api/add-poem', (req, res) => {
-  const status = addPoem(req.body)
-
-  if (status) {
+  const check = addPoem(req.body)
+  console.log('in restapi: ' + check.status)
+  if (check.status === 1) {
     res.json({ message: 'success' })
   } else {
-    res.json({ message: 'failure', error: status })
+    res.json({ message: 'failure', error: check.msg })
   }
 })
 
