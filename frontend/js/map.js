@@ -42,4 +42,5 @@ function createMap() {
     add_markers(map)
     })	
 }
+
 createMap()
