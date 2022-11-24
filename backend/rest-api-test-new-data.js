@@ -29,7 +29,6 @@ function validate (obj) {
 function addPoem (poem) {
   const passedValidation = validate(poem)
   if (passedValidation) {
-    // console.log('passed here!')
     return {
       status: 1,
       msg: 0
@@ -41,7 +40,6 @@ function addPoem (poem) {
       expected: testExample
     }
     console.log(retMsg)
-    // return retMsg
     return {
       status: 0,
       msg: retMsg

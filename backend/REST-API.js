@@ -7,7 +7,6 @@ router.use(bodyParser.json())
 
 router.post('/api/add-poem', (req, res) => {
   const check = addPoem(req.body)
-  console.log('in restapi: ' + check.status)
   if (check.status === 1) {
     res.json({ message: 'success' })
   } else {
