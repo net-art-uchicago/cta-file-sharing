@@ -5,6 +5,6 @@ if (navigator.userAgent.match(/Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobil
   isMobile = false
 }
 
-if (isMobile) {
-  window.location = 'index.html'
+if (!isMobile) {
+  window.location = 'desktop/index.html'
 }
