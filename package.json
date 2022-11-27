@@ -4,7 +4,8 @@
   "description": "a collaborative artware project by Media Art and Design students at the University of Chicago.",
   "main": "backend/server.js",
   "scripts": {
-    "start": "node backend/server.js"
+    "start": "node backend/server.js",
+    "bus-stops": "node backend/update-bus-stops.js"
   },
   "repository": {
     "type": "git",
@@ -25,4 +26,5 @@
   "devDependencies": {
     "standard": "^17.0.0"
   }
+  
 }
