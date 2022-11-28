@@ -1,5 +1,13 @@
+/* global app */
+
 const express = require('express')
 const router = express.Router()
+const {
+  searchPoemByAuthor,
+  searchPoemByLoc,
+  searchPoemByRoute,
+  allPoems
+} = require('./rest-api-test-data.js')
 
 router.get('/api/example', (req, res) => {
   res.json({ status: 'success', message: 'this is an example' })
@@ -15,88 +23,70 @@ router.get('/api/example', (req, res) => {
 */
 
 
-
-
 router.get('/api/poems', (req, res) => {
-  // res.json({ status: 'success', message: 'this is an example' })
   const author = req.query.author
-  const loc = req.query.loc
+  let loc = req.query.loc 
+  if (loc) loc = loc.split(',')
+  console.log(loc)
   const radius = req.query.radius
   const route = req.query.route
   const success = false
-  const msg = ""
-  const poem_list = []
-  const author_list = []
-  const route_list = []
-  const loc_list = []
+  
+  const filter = 
+    {
+      "author": author,
+      "lat": loc ? parseInt(loc[0]) : null,
+      "long": loc ? parseInt(loc[1]) : null,
+      "radius": radius ? parseInt(radius) : 20,
+      "route": route
+    }
+  
 
+  let msg = ""
+  let poem_list = []
 
-  if (loc.length() > 2)
+  if (loc && loc.length !==2)
   {
       success = false
       msg = "Invalid Location; expected 2 coordinates, got more"
       res.send({"poem":null, "status" : true, "msg": msg})
   }
-  else{
-    // Query Database querying functions
-
-    // Query by author
-    if (author){
-      author_list = searchPoemByAuthor(author)
-    }
-
-    // Radius Param TODO
-    // Query by author
-    if (loc, radius){
-      loc_list = searchPoemByLoc(loc[0],loc[1],radius)
-    }
-
-    // Query by route
-    if (route){
-      route_list = searchPoemByRoute(route)
-    }
-
-
-    
-    // Implementing list union feature
-
-    // 3 filters
-    if (author && loc && route){
-      poem_list = author_list.filter((a) => loc_list.some((b) => a.time === b.time));
-      poem_list = author_list.filter((a) => route_list.some((b) => a.time === b.time));
-    }
-    // 2 filters
-    else if (author && loc) 
-    {
-      poem_list = author_list.filter((a) => loc_list.some((b) => a.time === b.time));
-    }
-    // 2 filters
-    else if (route && loc) 
-    {
-      poem_list = route_list.filter((a) => loc_list.some((b) => a.time === b.time));
-    }
-    // 1 filter
-    else if (author) 
-    {
-      poem_list = author_list
-    }
-    // 1 filters
-    else if (loc) 
-    {
-      poem_list = loc_list
-    }
-    // 1 filter
-    else
-    {
-      poem_list = route_list
-    }
-
+  {
+    poem_list = allPoems()
+    console.log(filter)
+    poem_list= poem_list.filter(function(item) {
+      for (var key in filter) {
+        if (key == "lat" || key == "long" || key == "radius"){
+          console.log(filter["lat"],item["lat"],filter["long"],item["long"],filter["radius"])
+          console.log("distance" ,getDistance(filter["lat"],filter["long"],item["lat"],item["long"]))
+          if (getDistance(filter["lat"],filter["long"],item["lat"],item["long"]) > filter["radius"]){
+          console.log("exitnt")
+          return false
+          }
+        }
+        else if (filter[key] && item[key] != filter[key]){
+          console.log("exitntfvfv")
+          return false;
+        }
+      }
+      
+      return true;
+    });
   }
+  
+  function getDistance(x1, y1, x2, y2){
+    let y = x2 - x1;
+    let x = y2 - y1;
+    
+    return Math.sqrt(x * x + y * y);
+}
 
-  res.send({"poem":poem_list, "status" : true, "msg": null})
+  res.send({"poem_list": poem_list, 
+            "length": poem_list.length, 
+            "status" : true, 
+            "msg": null})
 
 })
-
 
 
 
