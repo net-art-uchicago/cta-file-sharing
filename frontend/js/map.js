@@ -1,46 +1,88 @@
-defLong=-87.597481
-defLat=41.784628
+mapboxgl.accessToken = 'pk.eyJ1IjoiYWpjaHUyOCIsImEiOiJja3o2M3MzMWswd200MnZwNGdieTNlaHRjIn0.BePZiTybP8rLoo6yQKon_w'
 
-function add_markers(map) {
-    const user = "someone"
-    const timestamp = "12:45"
-    const message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-    // Create a new marker.
-    //first create a div to contain the text
-    for (i=1;i<=20;i++){
-    const marker = new mapboxgl.Marker({color: "rgb(167, 60, 113)"})
-    .setLngLat([defLong+Math.random()/50-0.01, defLat+Math.random()/50-0.01])
-    .setPopup(new mapboxgl.Popup().setHTML(`<div class="usr">${user}</div><div class="time">${timestamp}</div><div class="msg">${message}</div>`))
-    .addTo(map)
+const map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/ajchu28/cla8p13jr002s14qvhnow3727',
+  center: [-87.623177, 41.881832],
+  zoom: 11.5
+})
+
+map.on('load', () => {
+  map.addSource('places', {
+
+    type: 'geojson',
+    data: {
+      type: 'FeatureCollection',
+      features: [{
+        type: 'Feature',
+        properties: {
+          username: 'Username',
+          timestamp: '00:00:00',
+          message: 'Hi',
+          icon: 'park'
+        },
+        geometry: {
+          type: 'Point',
+          coordinates: [-87.623177, 41.881832]
+        }
+      },
+      {
+        type: 'Feature',
+        properties: {
+          username: 'Username2',
+          timestamp: '02:00:00',
+          message: 'Hello!',
+          icon: 'park'
+        },
+        geometry: {
+          type: 'Point',
+          coordinates: [-87.625501, 41.871294]
+        }
+      }]
     }
-}
+  })
 
-function createMap() {
-    mapboxgl.accessToken = 'pk.eyJ1IjoieXJ1YW4iLCJhIjoiY2xhOHF6cmFsMDU4MTNwcGcycjJ5ZjcxOSJ9.uxn15xdxIi9r4wvvZGQarA'
-    const map = new mapboxgl.Map({
-    container: 'map', // container ID
-    // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-    style: 'mapbox://styles/yruan/cla8r0dyb004t14n28stg1rn8', // style URL 
-    center: [defLong, defLat], // starting position [lng, lat]
-    zoom: 15, // starting zoom
-    projection: 'globe' // display the map as a 3D globe
-    })
-    //create geolocate control
-    const geoLocate = new mapboxgl.GeolocateControl({ 
-        positionOptions: {
-        enableHighAccuracy: true
-        },	
-        trackUserLocation: false
-    })
-    // Add the geolocate control to the map.
-    map.addControl(geoLocate)
-    //define the thing to do when the map is loading
-    map.on('style.load', () => {
-    map.setFog({}) // Set the default atmosphere style
-    geoLocate.trigger() //trigger the event to find user location.
-    //add markers to the map
-    add_markers(map)
-    })	
-}
+  // Add a layer showing the places.
+  map.addLayer({
+    id: 'places',
+    type: 'symbol',
+    source: 'places',
+    layout: {
+      'icon-image': '{icon}',
+      'icon-size': 1.5,
+      'icon-allow-overlap': true
+    }
+  })
 
-createMap()
+  // When a click event occurs on a feature in the places layer, open a popup at the
+  // location of the feature, with description HTML from its properties.
+  map.on('click', 'places', (e) => {
+    // Copy coordinates array.
+    const coordinates = e.features[0].geometry.coordinates.slice()
+    const username = e.features[0].properties.username
+    const timestamp = e.features[0].properties.timestamp
+    const message = e.features[0].properties.message
+
+    // Ensure that if the map is zoomed out such that multiple
+    // copies of the feature are visible, the popup appears
+    // over the copy being pointed to.
+    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+      coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360
+    }
+
+    new mapboxgl.Popup()
+      .setLngLat(coordinates)
+      .setHTML('<div class="usr">' + username + '</div><div class="time">' + timestamp + '</div><div class="msg">' + message + '</div>')
+      .addTo(map)
+  })
+
+  // Change the cursor to a pointer when the mouse is over the places layer.
+  map.on('mouseenter', 'places', () => {
+    map.getCanvas().style.cursor = 'pointer'
+  })
+
+  // Change it back to a pointer when it leaves.
+  map.on('mouseleave', 'places', () => {
+    map.getCanvas().style.cursor = ''
+  })
+})
