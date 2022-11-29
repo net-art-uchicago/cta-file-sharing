@@ -46,7 +46,7 @@ router.get('/api/poems', (req, res) => {
         if (getDistance(filter.lat, filter.long, item.lat, item.long) > filter.radius) {
           return false
         }
-      } else if (filter[key] && item[key] != filter[key]) {
+      } else if (filter[key] && item[key] !== filter[key]) {
         return false
       }
     }
