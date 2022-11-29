@@ -12,7 +12,7 @@ function success (pos) {
   console.log(`More or less ${crd.accuracy} meters.`)
 }
 
-function error(err) {
+function error (err) {
   console.warn(`ERROR(${err.code}): ${err.message}`)
 }
 
@@ -20,43 +20,50 @@ let currentLocation = navigator.geolocation.getCurrentPosition(success, error, o
 
 // const testLocation = [41.234324, 23.23423423]
 
+async function getRoutes () {
+  const res = await fetch('api/stops?userLat=&userLon=')
+  const data = await res.json()
+  const x = document.getElementById('selectInputId')
+  for (let i = 0; i < data.length; i++) {
+    const option = document.createElement('option')
+    option.text = data[i].routes
+    x.addEventListener(option)
+  }
+}
+
+// display routes in drop down, what does this get return?
+
 async function nearStop () {
-  const res = await fetch('api/cta-near-stop?loc=121.121029,23.1029381208')
+  const res = await fetch('api/cta-near-stop?route=55&userLat=&userLon=')
   const data = await res.json()
 }
 // nearby stops should give empty list if not near
 // what does structure of stop look like?
 
-const stop = '55th and Ellis'
+// const stop = '55th and Ellis'
 
-async function Routes() {
-  const res = await fetch('api/cta-routes')
+// const route = 55
+
+async function getClosestDistance () {
+  const res = await fetch('api/cta-bus-distance?route=&userLat=&userLon=')
   const data = await res.json()
-  data.forEach()
-}
-// display routes in drop down, what does this get return?
-
-const route = 55
-
-async function getClosestDistance() {
-  const res = await fetch('api/cta-bus-distance?stop=&route=')
-  const data = await res.json()
-  data.forEach(poem => {poem.author})
-  Date.now()
+  // in km
+  let time = data / 16 / 60
 }
 // given certain bus's distance, do I have to calculate average time?
 
-let poem = [
-  {
-    datetime: 1668544391012, // number, unicode timestamp
-    location: [41.78868316205326, -87.59874232864101], // Array of GPS coordinates
-    text: 'an example poem', // string
-    author: 'Bobby Bob', // string,
-    route: 172 // number, a bus route
-  }
-]
+// let poem = [
+// {
+// datetime: 1668544391012, // number, unicode timestamp
+// location: [41.78868316205326, -87.59874232864101], // Array of GPS coordinates
+// text: 'an example poem', // string
+// author: 'Bobby Bob', // string,
+// route: 172 // number, a bus route
+// }
+// ]
 // prompt for author name?
 // box to type in
+
 async function postPoem (poem) {
   const data = {
     method: 'POST',
