@@ -1,9 +1,8 @@
-const { debug } = require('console')
 const fs = require('fs')
 const path = require('path')
 
 // a global variable w/the absolute path to the data base
-const dbpath = path.join(__dirname , './database.json')
+const dbpath = path.join(__dirname, './database.json')
 // checks to see if the database exists, if not it creates it
 if (!fs.existsSync(dbpath)) {
   fs.writeFileSync(dbpath, '[]')
@@ -15,7 +14,7 @@ function addPoem (poem) {
   db.push(poem)
   fs.writeFile(dbpath, JSON.stringify(db, null, 2), err => {
     if (err) throw err
-     console.log('Done writing') // Success
+    console.log('Done writing') // Success
   })
 }
 
@@ -27,7 +26,7 @@ function findPoemsByLoc (lat, long, radius) {
       poems.push(db[i])
     }
   }
-    return poems
+  return poems
 }
 
 function findPoemsByAuthor (author) {
@@ -70,6 +69,3 @@ module.exports = {
   findPoemsByDate,
   findPoemsByRoute
 }
-
-
-
