@@ -33,10 +33,11 @@ async function getRoutes () {
 
 // display routes in drop down, what does this get return?
 
-async function nearStop () {
-  const res = await fetch('api/cta-near-stop?route=55&userLat=&userLon=')
-  const data = await res.json()
-}
+// async function nearStop () {
+//  const res = await fetch('api/cta-near-stop?route=55&userLat=&userLon=')
+//  const data = await res.json()
+// }
+
 // nearby stops should give empty list if not near
 // what does structure of stop look like?
 
