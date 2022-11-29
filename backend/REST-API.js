@@ -26,7 +26,7 @@ router.get('/api/poems', (req, res) => {
       lat: loc ? parseInt(loc[0]) : null,
       long: loc ? parseInt(loc[1]) : null,
       radius: radius ? parseInt(radius) : 20,
-      route
+      route: parseInt(route)
     }
 
   let msg = ''
