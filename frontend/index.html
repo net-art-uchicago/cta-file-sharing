@@ -3,22 +3,32 @@
   <head>
     <meta charset="utf-8">
     <title>Example Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/chat/styles.css">
   </head>
-  <body>
+  <body class="chatPage">
+    <div class="chatList">
+      <!-- <p class="bubble bottom-arrow" > This is an introduction to the app</p>
 
-    <main>
-      <img src="/images/face.jpg" alt="a happy face">
-      <h1>This is an exapmle</h1>
-    </main>
-    
+      <p class="bubble bottom-arrow" >Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..</p>
+      <p class="bubble bottom-arrow" >Ut enim ad minim veniam, quis nostrud exercitation
+        ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
+      <p class="bubble bottom-arrow" >Diam sit amet nisl suscipit adipiscing bibendum est. </p>
+      <p class="bubble2 bottom-arrow2" >Vulputate mi sit amet mauris commodo quis imperdiet massa.</p>
+      <p class="bubble2 bottom-arrow2" >Porttitor lacus luctus accumsan tortor posuere ac ut. Morbi tristique
+        senectus et netus et malesuada fames ac turpis</p> -->
+    </div>
+    <div id="user-input-wrapper">
+      <input type="text" id="textid" name="textname" required
+         size="75" placeholder="   Start typing here" >
+    </div>
+
     <script src="js/firstPage.js"></script>
-
     <script src="js/isMobile.js"></script>
-
-    <!--[TEST] POST request -->
     <script src="js/post-request-test.js"></script>
-
+    <script src="js/main.js"></script>
   </body>
 </html>
