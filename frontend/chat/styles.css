@@ -1,0 +1,64 @@
+
+.chatPage {
+  background: #17C5A0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+    
+.chatList{
+  height: 86vh;
+  overflow-y: scroll;
+}
+
+.bubble {
+  position: relative;
+  font-family: sans-serif;
+  font-size: 18px;
+  width: 210px;
+  background: #ffffff ;
+  border-radius: 20px;
+  border-style: solid;
+  border-color: black;
+  padding: 7px;
+  margin: 20px;
+  color: #000000;
+}
+    
+.bubble2 {
+  position: relative;
+  font-family: sans-serif;
+  font-size: 18px;
+  width: 210px;
+  background: #ffffff ;
+  border-radius: 20px;
+  border-style: solid;
+  border-color: black;
+  padding: 7px;
+  margin: 20px;
+  margin-left: 110px;
+  color: #000000;
+}
+
+
+#user-input-wrapper{
+  position: fixed;
+  bottom: 10px;
+}
+
+#textid{
+  height: 35px;
+  width:  320px;
+  margin-top: 25px;
+  line-height: 30px;
+  border-radius: 20px;
+}
+    
+#selectInputId{
+  text-align: center;
+  font-family: sans-serif;
+  height: 35px;
+  width:  320px;
+  margin-top: 25px;
+  border-radius: 20px;
+}
