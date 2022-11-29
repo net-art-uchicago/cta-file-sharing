@@ -3,6 +3,9 @@
 *.DS_Store
 .DS_Store
 
+#database file
+database.json
+
 # Logs
 logs
 *.log
@@ -107,3 +110,4 @@ dist
 
 # TernJS port file
 .tern-port
+

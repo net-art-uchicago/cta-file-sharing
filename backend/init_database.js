@@ -1,58 +1,75 @@
-const { debug } = require("console");
-const fs = require("fs");
+const { debug } = require('console')
+const fs = require('fs')
+const path = require('path')
+
+// a global variable w/the absolute path to the data base
+const dbpath = path.join(__dirname , './database.json')
+// checks to see if the database exists, if not it creates it
+if (!fs.existsSync(dbpath)) {
+  fs.writeFileSync(dbpath, '[]')
+  console.log('New file created')
+}
 
 function addPoem (poem) {
-    const db = require('./database.json')
-    const newPoem = poem
-    db.push(newPoem)
-    fs.writeFile('database.json', JSON.stringify(db), err => {
-        if (err) throw err
-        console.log('Done writing') // Success
-    })
+  const db = require(dbpath)
+  db.push(poem)
+  fs.writeFile(dbpath, JSON.stringify(db, null, 2), err => {
+    if (err) throw err
+     console.log('Done writing') // Success
+  })
 }
-addPoem({'poem': 'this is a poem', 'date': 11242022, 'author': 'trisha','lat': 3, 'long': 4, 'route': 12 })
 
 function findPoemsByLoc (lat, long, radius) {
-    const db = require('./database.json')
-    const poems = []
-    for (let i = 0; i < db.length; i++) {
-        if (Math.pow(lat - db[i].lat,2) + Math.pow(long - db[i].long,2) <= radius**2) {
-            poems.push(db[i])
-        }
+  const db = require(dbpath)
+  const poems = []
+  for (let i = 0; i < db.length; i++) {
+    if (Math.pow(lat - db[i].lat, 2) + Math.pow(long - db[i].long, 2) <= radius ** 2) {
+      poems.push(db[i])
     }
+  }
     return poems
 }
 
 function findPoemsByAuthor (author) {
-    const db = require('./database.json')
-    const poems = []
-    for (let i = 0; i < db.length; i++) {
-        if (db[i].author === author) {
-            poems.push(db[i])
-        }
+  const db = require(dbpath)
+  const poems = []
+  for (let i = 0; i < db.length; i++) {
+    if (db[i].author === author) {
+      poems.push(db[i])
     }
-    return poems
+  }
+  return poems
 }
 
-function findPoemsByroute (date) {
-    const db = require('./database.json')
-    const poems = []
-    for (let i = 0; i < db.length; i++) {
-        if (db[i].date === date) {
-            poems.push(db[i])
-        }
+function findPoemsByDate (date) {
+  const db = require(dbpath)
+  const poems = []
+  for (let i = 0; i < db.length; i++) {
+    if (db[i].date === date) {
+      poems.push(db[i])
     }
-    return poems
+  }
+  return poems
 }
 
 function findPoemsByRoute (route) {
-    const db = require('./database.json')
-    const poems = []
-    for (let i = 0; i < db.length; i++) {
-        if (db[i].route === route) {
-            poems.push(db[i])
-        }
+  const db = require(dbpath)
+  const poems = []
+  for (let i = 0; i < db.length; i++) {
+    if (db[i].route === route) {
+      poems.push(db[i])
     }
-    return poems
+  }
+  return poems
 }
+
+module.exports = {
+  addPoem,
+  findPoemsByLoc,
+  findPoemsByAuthor,
+  findPoemsByDate,
+  findPoemsByRoute
+}
+
+
 
