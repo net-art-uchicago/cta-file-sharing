@@ -5,29 +5,7 @@
     
     <title>Gather Together</title>
     <link rel="stylesheet" href="/css/styles.css">
-    <style>
-        #name {
-            font-size: 50px;
-            font-family: sans-serif;
-        }
-        #poem {
-            font-size: 12px;
-            font-family: sans-serif;
-        }
-        #time {
-            font-size: 40px;
-            font-family: sans-serif;
-        }
-        .footer {
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            background-color: rgb(187, 187, 187);
-            color: white;
-            text-align: center; 
-        }
-    </style>
+    <link rel="stylesheet" href="/css/gather.css">
   </head>
   <body>
 
@@ -40,27 +18,6 @@
     </div>
     
 
-    <script>
-    
-        const name = document.querySelector('#name')
-        const poem = document.querySelector('#poem')
-        const time = document.querySelector('#time')
-       
-        const url = 'package.json'
-        const req = {method: 'GET'}
-        fetch(url, req)
-            // turn json information into js object
-            .then(res => res.text())
-            // get data from poem database and print java script object "time"
-            .then(data => {
-                const obj = JSON.parse(data)
-                //call author of poem... right now it is calling to the arbirtray package it successfully displays
-                name.textContent = obj.name // change name to poem author
-                poem.textContent = obj.description // change description to poem
-                time.textContent = obj.name //change to time
-                console.log(data)
-            })
-    
-    </script>
+    <script src="js/gather.js"></script>
 </body>
 </html>
