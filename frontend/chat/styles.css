@@ -57,6 +57,7 @@
   margin-top: 25px;
   line-height: 30px;
   border-radius: 20px;
+  display: none;
 }
 
 #selectInputId{

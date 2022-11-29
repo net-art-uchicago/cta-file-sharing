@@ -1,7 +1,8 @@
 const prompts = {
   intro: 'wait ⤏ create. move ⤏ consume.',
   routeQ: `what route are you taking?
-  `
+  `,
+  askPoem: 'create:'
 }
 
 function addBubble (html, side) {
