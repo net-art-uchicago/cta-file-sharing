@@ -16,4 +16,3 @@ fetch(url, req)
     time.textContent = obj.name // change to time
     console.log(data)
   })
-  
