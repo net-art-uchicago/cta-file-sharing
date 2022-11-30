@@ -119,7 +119,7 @@ async function postPoem (poemObj) {
   const json = await res.json()
 
   if (json.message === 'success') {
-    window.location = '/page2'
+    window.location = '/poems'
   } else {
     // TODO: fallback message if something went wrong?
   }
