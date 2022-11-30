@@ -1,0 +1,31 @@
+{
+  "type": "FeatureCollection",
+  "features": [{
+    "type": "Feature",
+    "properties": {
+      "username": "Username",
+      "timestamp": "00:00:00",
+      "message": "Hi",
+      "icon": "park",
+      "sentiment": 2
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-87.623177, 41.881832]
+    }
+  },
+  {
+    "type": "Feature",
+    "properties": {
+      "username": "Username2",
+      "timestamp": "02:00:00",
+      "message": "Hello!",
+      "icon": "park",
+      "sentiment": -1.5
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-87.625501, 41.871294]
+    }
+  }]
+}
