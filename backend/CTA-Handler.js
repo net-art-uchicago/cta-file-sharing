@@ -22,11 +22,13 @@ function distance (lat1, lat2, lon1, lon2) {
   return (c * r)
 }
 
+// console.log(distance(41.79102639912453, 41.7905160748, -87.6013374367902, -87.60224848086735));
+
 // API/CTA-BUS-DISTANCE
 // Returns JSON of closest distance from closest bus on route to user's location
 router.get('/api/cta-bus-distance', async (req, res) => {
   // From user input (front-end)
-  const route = 172
+  const route = req.query.route
   const bus = await axios.get(`https://ctabustracker.com/bustime/api/v3/getvehicles?key=gbNab8LFcBWDx5qmtc8Q8dfjb&rt=${route}&format=json`)
   const lstBus = bus.data['bustime-response'].vehicle
   const lstBusLatLon = []
@@ -36,8 +38,8 @@ router.get('/api/cta-bus-distance', async (req, res) => {
     lstBusLatLon.push([lat, lon])
   }
   // User's current lat and lon (replace with actual lat and lon)
-  const userLat = 41.78650608062744
-  const userLon = -87.59143829345703
+  const userLat = req.query.userLat
+  const userLon = req.query.userLon
   const lstDistance = []
   for (let i = 0; i < lstBusLatLon.length; i++) {
     lstDistance.push(distance(lstBusLatLon[i][0], userLat, lstBusLatLon[i][1], userLon))
@@ -59,7 +61,7 @@ router.get('/api/cta-routes', async (req, res) => {
 // Returns JSON of distance to closest stop
 router.get('/api/cta-near-stop', async (req, res) => {
   // Change route to user's input
-  const route = 172
+  const route = req.query.route
   const directions = await axios.get(`https://ctabustracker.com/bustime/api/v3/getdirections?key=gbNab8LFcBWDx5qmtc8Q8dfjb&rt=${route}&format=json`)
   const lstDirection = directions.data['bustime-response'].directions
   const lstDirections = []
@@ -85,8 +87,8 @@ router.get('/api/cta-near-stop', async (req, res) => {
       lstStops.push(lstStopsTemp)
     }
   }
-  const userLat = 41.78650608062744
-  const userLon = -87.59143829345703
+  const userLat = req.query.userLat
+  const userLon = req.query.userLon
   const lstDistance = []
   for (let i = 0; i < lstStops.length; i++) {
     lstDistance.push(distance(lstStops[i][1], userLat, lstStops[i][2], userLon))
@@ -98,15 +100,15 @@ router.get('/api/cta-near-stop', async (req, res) => {
 // API/stops
 // Returns JSON of all the stops
 router.get('/api/stops', async (req, res) => {
-  const userLat = -87.64178572600002
-  const userLon = 41.67799153599998
+  const userLat = req.query.userLat
+  const userLon = req.query.userLon
   const fs = require('fs')
   const obj = JSON.parse(fs.readFileSync('./backend/bus-data.json'))
   let minD = 500
   let closestStopRoutes = []
   for (let i = 0; i < obj.length; i++) {
-    const stopLat = obj[i].loc[0]
-    const stopLon = obj[i].loc[1]
+    const stopLat = obj[i].loc[1]
+    const stopLon = obj[i].loc[0]
     const d = distance(stopLat, userLat, stopLon, userLon)
     if (d < minD) {
       minD = d

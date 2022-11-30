@@ -5,14 +5,17 @@
   align-items: center;
   justify-content: center;
 }
-    
+
 .chatList{
   height: 86vh;
+  width: 100%;
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .bubble {
-  position: relative;
   font-family: sans-serif;
   font-size: 18px;
   width: 210px;
@@ -21,10 +24,12 @@
   border-style: solid;
   border-color: black;
   padding: 7px;
-  margin: 20px;
+  margin: 10px;
   color: #000000;
+  opacity: 0;
+  transition: opacity 0.5s;
 }
-    
+
 .bubble2 {
   position: relative;
   font-family: sans-serif;
@@ -35,8 +40,8 @@
   border-style: solid;
   border-color: black;
   padding: 7px;
-  margin: 20px;
-  margin-left: 110px;
+  margin: 10px;
+  align-self: flex-end;
   color: #000000;
 }
 
@@ -44,21 +49,33 @@
 #user-input-wrapper{
   position: fixed;
   bottom: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 #textid{
   height: 35px;
-  width:  320px;
-  margin-top: 25px;
+  width: 70%;
   line-height: 30px;
   border-radius: 20px;
+  display: none;
 }
-    
+
+#textSubmit {
+  width: 20%;
+  border-radius: 20px;
+  background: #fff;
+  border: none;
+  padding: 0.5rem 0;
+  display: none;
+}
+
 #selectInputId{
   text-align: center;
   font-family: sans-serif;
   height: 35px;
-  width:  320px;
+  /* width:  320px; */
   margin-top: 25px;
   border-radius: 20px;
 }

@@ -1,5 +1,15 @@
 getPoems()
 
+function addBubble (html, side) {
+  const p = document.createElement('p')
+  p.classList.add(side)
+  p.innerHTML = html
+  document.querySelector('.chatList').appendChild(p)
+  setTimeout(() => {
+    p.style.opacity = 1
+  }, 100)
+}
+
 function getPoems () {
   const req = { method: 'GET' }
   fetch('poems.json', req)
@@ -14,7 +24,7 @@ function appendData (data) {
   for (let i = 0; i < data.length; i++) {
     const div = document.createElement('div')
     div.innerHTML = `${data[i].text} ...signed ${data[i].author} --
-                        ${data[i].location} -- ${data[i].datetime}  
+                        ${data[i].location} -- ${data[i].datetime}
                         -- ROUTE ${data[i].route}`
     mainCont.appendChild(div)
   }
