@@ -1,3 +1,9 @@
+/* global prompts */
+
+let crd, chosenRoute, author, poem
+
+// --------------------- get GPS ---------------------
+
 const options = {
   enableHighAccuracy: true,
   timeout: 5000,
@@ -5,79 +11,116 @@ const options = {
 }
 
 function success (pos) {
-  const crd = pos.coords
-  console.log('Your current position is:')
-  console.log(`Latitude : ${crd.latitude}`)
-  console.log(`Longitude: ${crd.longitude}`)
-  console.log(`More or less ${crd.accuracy} meters.`)
+  crd = pos.coords
+  startConvo()
 }
 
 function error (err) {
-  console.warn(`ERROR(${err.code}): ${err.message}`)
+  if (err && err.message) window.alert(err.message)
+  addBubble(prompts.noGPS, 'bubble')
+  startConvo()
 }
 
-let currentLocation = navigator.geolocation.getCurrentPosition(success, error, options)
+navigator.geolocation.getCurrentPosition(success, error, options)
 
-// const testLocation = [41.234324, 23.23423423]
+// --------------------- bubble convo functions ---------------------
+
+function addBubble (html, side) {
+  const p = document.createElement('p')
+  p.classList.add(side)
+  p.innerHTML = html
+  document.querySelector('.chatList').appendChild(p)
+  setTimeout(() => {
+    p.style.opacity = 1
+  }, 100)
+}
+
+function startConvo () {
+  setTimeout(() => addBubble(prompts.intro, 'bubble'), 500)
+  setTimeout(() => {
+    addBubble(prompts.routeQ, 'bubble')
+    getRoutes()
+  }, 1500)
+}
+
+function poemEntered (e) {
+  const textField = document.querySelector('#textid')
+  poem = textField.value
+  addBubble(poem, 'bubble2')
+  textField.value = ''
+  addBubble(prompts.getAuthor, 'bubble')
+  document.querySelector('#textSubmit').onclick = (e) => authorEntered(e)
+}
+
+function authorEntered (e) {
+  const textField = document.querySelector('#textid')
+  author = textField.value
+  addBubble(author, 'bubble2')
+  textField.value = ''
+  postPoem({
+    datetime: Date.now(), // number, unicode timestamp
+    location: [crd.latitude, crd.longitude], // Array of GPS coordinates
+    text: poem, // string
+    author: author, // string,
+    route: chosenRoute // number, a bus route
+  })
+}
+
+// --------------------- fetch functions ---------------------
 
 async function getRoutes () {
-  const res = await fetch('api/stops?userLat=&userLon=')
+  // NOTE: for local mobile testing
+  // crd = {
+  //   latitude: 41.78889190252645,
+  //   longitude: -87.59912079718956
+  // }
+
+  const res = await window.fetch(`api/stops?userLat=${crd.latitude}&userLon=${crd.longitude}`)
   const data = await res.json()
-  const x = document.getElementById('selectInputId')
-  for (let i = 0; i < data.length; i++) {
+  const select = document.getElementById('selectInputId')
+  select.addEventListener('change', (e) => {
+    const route = e.target.value
+    if (route === 'pick') return
+    getClosestDistance(route)
+  })
+
+  for (let i = 0; i < data.routes.length; i++) {
     const option = document.createElement('option')
-    option.text = data[i].routes
-    x.addEventListener(option)
+    option.value = data.routes[i]
+    option.innerText = data.routes[i]
+    select.appendChild(option)
   }
 }
 
-// display routes in drop down, what does this get return?
-
-// async function nearStop () {
-//  const res = await fetch('api/cta-near-stop?route=55&userLat=&userLon=')
-//  const data = await res.json()
-// }
-
-// nearby stops should give empty list if not near
-// what does structure of stop look like?
-
-// const stop = '55th and Ellis'
-
-// const route = 55
-
-async function getClosestDistance () {
-  const res = await fetch('api/cta-bus-distance?route=&userLat=&userLon=')
+async function getClosestDistance (r) {
+  const res = await window.fetch(`api/cta-bus-distance?route=${r}&userLat=${crd.latitude}&userLon=${crd.longitude}`)
   const data = await res.json()
-  // in km
-  let time = data / 16 / 60
+  if (chosenRoute) return // ensure this only runs once
+  chosenRoute = r
+  // TODO: we could maybe give them different prompts depending on
+  // how far the bus is, ie. data.distance
+  addBubble(prompts.askPoem, 'bubble')
+  document.querySelector('#textid').style.display = 'block'
+  document.querySelector('#textSubmit').style.display = 'block'
+  document.querySelector('#textSubmit').onclick = (e) => poemEntered(e)
 }
-// given certain bus's distance, do I have to calculate average time?
 
-// let poem = [
-// {
-// datetime: 1668544391012, // number, unicode timestamp
-// location: [41.78868316205326, -87.59874232864101], // Array of GPS coordinates
-// text: 'an example poem', // string
-// author: 'Bobby Bob', // string,
-// route: 172 // number, a bus route
-// }
-// ]
-// prompt for author name?
-// box to type in
-
-async function postPoem (poem) {
+async function postPoem (poemObj) {
   const data = {
     method: 'POST',
     headers: {
       Accept: 'applications/json, text/plain, */*',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(poem)
+    body: JSON.stringify(poemObj)
   }
 
-  const res = await fetch('api/add-poem')
-
+  const res = await window.fetch('api/add-poem', data)
   const json = await res.json()
 
-  console.log(data)
+  if (json.message === 'success') {
+    window.location = '/page2'
+  } else {
+    // TODO: fallback message if something went wrong?
+  }
 }
