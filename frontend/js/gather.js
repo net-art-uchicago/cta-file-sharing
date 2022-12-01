@@ -1,4 +1,4 @@
-const name = document.querySelector('#name')
+const author = document.querySelector('#name')
 const poem = document.querySelector('#poem')
 const time = document.querySelector('#time')
 
@@ -10,14 +10,36 @@ fetch(url, req)
   // get data from poem database and print java script object "time"
   .then(data => {
     const obj = JSON.parse(data)
-    // call author of poem... right now it is calling to the arbirtray package it successfully displays
-    name.textContent = obj.author // change name to poem author
-    poem.textContent = obj.poem // change description to poem
+    // call to backend database.json file to access poems
+    // now just displaying poems
+
+    author.textContent = obj.author
+    poem.textContent = obj.poem
     time.textContent = obj.date // change to time
     console.log(data)
-    console.log(date)
   })
 
-async function getTime () {
-  const res = await fetch('')
-}
+/* Array.from(document.getElementsByClassName('page')).forEach(e => function (i, e) {
+  e.click(function (event) {
+    // const x = event.pageX
+    // const y = event.pageY
+    document.getElementById('cursor-position-x').textContent = event.clientX;
+    document.getElementById('cursor-position-y').textContent = event.clientY;
+
+    let nextItem = i + 1
+    if (nextItem >= ('.page').length) {
+      nextItem = 0
+    }
+
+    ('.page:eq(' + nextItem + ')').css('z-index', parseInt(e.css('z-index')) + 1);
+    ('.page:eq(' + nextItem + ')').css('clip-path', 'circle(0% at ' + x + 'px ' + y + 'px)')
+
+    anime({
+      targets: ('.page')[nextItem],
+      update: function (anim) {
+        ('.page:eq(' + nextItem + ')').css('clip-path', 'circle(' + (anim.progress * 2) + '% at ' + x + 'px ' + y + 'px)')
+      }
+    })
+  })
+})
+*/

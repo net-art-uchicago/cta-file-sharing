@@ -1,16 +1,51 @@
+body { margin: 0; padding: 0; }
+
 #name {
     font-size: 50px;
     font-family: sans-serif;
 }
+
 #poem {
     font-size: 12px;
     font-family: sans-serif;
 }
+
 #time {
     font-size: 40px;
     font-family: sans-serif;
 }
-.footer {
+
+.page {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .usage {
+    position: absolute;
+    top: 40px;
+    line-height: 50px;
+    z-index: 1000;
+    color: white;
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+    font-family: "Arial Black", Gadget, sans-serif;
+    pointer-events: none;
+  }
+  
+  h1{
+    color: white;
+    font-family: arial;
+    font-weight: bold;
+    font-size: 3em;
+  }
+  
+  .footer {
     position: fixed;
     left: 0;
     bottom: 0;
@@ -19,3 +54,4 @@
     color: white;
     text-align: center; 
 }
+  
