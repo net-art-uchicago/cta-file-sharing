@@ -1,0 +1,21 @@
+#name {
+    font-size: 50px;
+    font-family: sans-serif;
+}
+#poem {
+    font-size: 12px;
+    font-family: sans-serif;
+}
+#time {
+    font-size: 40px;
+    font-family: sans-serif;
+}
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(187, 187, 187);
+    color: white;
+    text-align: center; 
+}

@@ -95,5 +95,26 @@ router.get('/api/cta-near-stop', async (req, res) => {
   res.json({ distance: objMinDistance })
 })
 
+// API/stops
+// Returns JSON of all the stops
+router.get('/api/stops', async (req, res) => {
+  const userLat = -87.64178572600002
+  const userLon = 41.67799153599998
+  const fs = require('fs')
+  const obj = JSON.parse(fs.readFileSync('./backend/bus-data.json'))
+  let minD = 500
+  let closestStopRoutes = []
+  for (let i = 0; i < obj.length; i++) {
+    const stopLat = obj[i].loc[0]
+    const stopLon = obj[i].loc[1]
+    const d = distance(stopLat, userLat, stopLon, userLon)
+    if (d < minD) {
+      minD = d
+      closestStopRoutes = obj[i].routes
+    }
+  }
+  res.json({ distanceToUser: minD, routes: closestStopRoutes })
+})
+
 // Check database --> fetch from CTA
 module.exports = router
