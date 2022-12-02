@@ -5,20 +5,13 @@ const {
   allPoems
 } = require('./rest-api-test-data.js')
 const bodyParser = require('body-parser')
-// const addPoem = require('./rest-api-test-new-data.js')
 const { addPoem } = require('./init_database.js')
 
 router.use(bodyParser.json())
 
 router.post('/api/add-poem', (req, res) => {
   const check = addPoem(req.body)
-  // TODO: gotta do some validation here or in init_database.js
-  // if (check.status === 1) {
-  //   res.json({ message: 'success' })
-  // } else {
-  //   res.json({ message: 'failure', error: check.msg })
-  // }
-  res.json({ message: 'success' })
+  res.json(check)
 })
 
 /*

@@ -9,13 +9,37 @@ if (!fs.existsSync(dbpath)) {
   console.log('New file created')
 }
 
+function validPoem (poem) {
+  if (typeof poem.poem !== 'string') {
+    console.log('error: the poem should be a string')
+    return 0
+  } else if (typeof poem.lat !== 'number' || typeof poem.lat !== 'number') {
+    console.log('error: latitute and longitude should be numbers')
+    return 0
+  } else if (typeof poem.author !== 'string') {
+    console.log('error: author should be a string')
+    return 0
+  } else if (typeof poem.route !== 'number') {
+    console.log('error: route should be a number')
+    return 0
+  } else if (typeof poem.date !== 'number') {
+    console.log('error: datetime should be number')
+    return 0
+  } else {
+    console.log('success: valid entry')
+    return 1
+  }
+}
+
 function addPoem (poem) {
   const db = require(dbpath)
-  db.push(poem)
-  fs.writeFile(dbpath, JSON.stringify(db, null, 2), err => {
-    if (err) throw err
-    console.log('Done writing') // Success
-  })
+  if (validPoem(poem)) {
+    db.push(poem)
+    fs.writeFileSync(dbpath, JSON.stringify(db, null, 2), err => {
+      if (err) throw err
+      console.log('Done writing') // Success
+    })
+  }
 }
 
 function findPoemsByLoc (lat, long, radius) {
