@@ -14,18 +14,18 @@ function getPoems () {
   const req = { method: 'GET' }
   fetch('poems.json', req)
     .then(res => res.json())
-    .then(data => appendData(data))
+    .then(data => displayData(data))
     .catch(err => console.log('error: ' + err))
 }
 
-function appendData (data) {
+function displayData (data) {
   const mainCont = document.querySelector('#poem')
+  let rand = Math.floor(Math.random() * data.length)
+  let text = `<b>${data[rand].poem}</b> 
+  <br><br> ...signed <b>${data[rand].author}</b> 
+  <br><br>(${data[rand].lat}, ${data[rand].long})
+  <br> ✩ date... ${(data[rand].date)}
+  <br> ✩ route... ${data[rand].route} `
 
-  for (let i = 0; i < data.length; i++) {
-    const div = document.createElement('div')
-    div.innerHTML = `${data[i].text} ...signed ${data[i].author} --
-                        ${data[i].location} -- ${data[i].datetime}
-                        -- ROUTE ${data[i].route}`
-    mainCont.appendChild(div)
-  }
+  addBubble(text,'bubble')
 }
