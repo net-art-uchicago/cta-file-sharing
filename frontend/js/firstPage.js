@@ -62,7 +62,7 @@ function authorEntered (e) {
     location: [crd.latitude, crd.longitude], // Array of GPS coordinates
     text: poem, // string
     author: author, // string,
-    route: chosenRoute // number, a bus route
+    route: Number(chosenRoute) // number, a bus route
   })
 }
 

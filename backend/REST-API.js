@@ -1,11 +1,8 @@
 const express = require('express')
 const router = express.Router()
 
-const {
-  allPoems
-} = require('./rest-api-test-data.js')
+const { addPoem, allPoems } = require('./init_database.js')
 const bodyParser = require('body-parser')
-const { addPoem } = require('./init_database.js')
 
 router.use(bodyParser.json())
 

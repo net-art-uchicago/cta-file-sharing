@@ -11,35 +11,35 @@ if (!fs.existsSync(dbpath)) {
 
 function validPoem (poem) {
   if (typeof poem.poem !== 'string') {
-    console.log('error: the poem should be a string')
-    return 0
+    return 'error: the poem should be a string'
   } else if (typeof poem.lat !== 'number' || typeof poem.lat !== 'number') {
-    console.log('error: latitute and longitude should be numbers')
-    return 0
+    return 'error: latitute and longitude should be numbers'
   } else if (typeof poem.author !== 'string') {
-    console.log('error: author should be a string')
-    return 0
+    return 'error: author should be a string'
   } else if (typeof poem.route !== 'number') {
-    console.log('error: route should be a number')
-    return 0
+    return 'error: route should be a number'
   } else if (typeof poem.date !== 'number') {
-    console.log('error: datetime should be number')
-    return 0
+    return 'error: date should be number'
   } else {
-    console.log('success: valid entry')
-    return 1
+    return 'success'
   }
 }
 
 function addPoem (poem) {
   const db = require(dbpath)
-  if (validPoem(poem)) {
+  const msg = validPoem(poem)
+  if (msg === 'success') {
     db.push(poem)
-    fs.writeFileSync(dbpath, JSON.stringify(db, null, 2), err => {
-      if (err) throw err
-      console.log('Done writing') // Success
-    })
+    fs.writeFileSync(dbpath, JSON.stringify(db, null, 2))
+    return { message: msg }
+  } else {
+    return { message: 'error', error: msg }
   }
+}
+
+function allPoems () {
+  const db = require(dbpath)
+  return db
 }
 
 function findPoemsByLoc (lat, long, radius) {
@@ -88,6 +88,8 @@ function findPoemsByRoute (route) {
 
 module.exports = {
   addPoem,
+  validPoem,
+  allPoems,
   findPoemsByLoc,
   findPoemsByAuthor,
   findPoemsByDate,
