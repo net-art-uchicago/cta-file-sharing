@@ -10,9 +10,9 @@ if (!fs.existsSync(dbpath)) {
 }
 
 function validPoem (poem) {
-  if (typeof poem.poem !== 'string') {
+  if (typeof poem.text !== 'string') {
     return 'error: the poem should be a string'
-  } else if (typeof poem.lat !== 'number' || typeof poem.lat !== 'number') {
+  } else if (typeof poem.location[0] !== 'number' || typeof poem.location[1] !== 'number') {
     return 'error: latitute and longitude should be numbers'
   } else if (typeof poem.author !== 'string') {
     return 'error: author should be a string'
