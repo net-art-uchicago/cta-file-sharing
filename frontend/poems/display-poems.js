@@ -19,8 +19,6 @@ function getPoems () {
 }
 
 function displayData (data) {
-  
-  
   var i = 0
   function myLoop(){
     let rand = Math.floor(Math.random() * data.length)
