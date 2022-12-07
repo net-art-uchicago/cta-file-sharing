@@ -18,7 +18,7 @@ function validPoem (poem) {
     return 'error: author should be a string'
   } else if (typeof poem.route !== 'number') {
     return 'error: route should be a number'
-  } else if (typeof poem.date !== 'number') {
+  } else if (typeof poem.datetime !== 'number') {
     return 'error: date should be number'
   } else {
     return 'success'
