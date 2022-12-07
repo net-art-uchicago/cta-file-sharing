@@ -84,7 +84,7 @@ router.get('/api/poems', (req, res) => {
   })
 })
 
-router.get('/api/get-sentiment', (req, res) => {
+router.post('/api/get-sentiment', (req, res) => {
   // Sentiment Analysis package (installed from npm)
   async function computeSentiment (text) {
     const Sentiment = require('sentiment')
@@ -92,28 +92,28 @@ router.get('/api/get-sentiment', (req, res) => {
     const result = sentiment.analyze(text)
     return (result.comparative)
   }
-
+// CODE BELOW IS FOR CONVERTING SENTIMENT DATA + POEMS INTO GEOJSON FOR HEATMAP
 // Run Sentiment Analysis on the Poems and convert out poem JSON to a GEOJSON for Mapping
-    poemList = allPoems()
-    const outGeoJson = {}
-    const sentiment = []
-    const coords = []
+    // poemList = allPoems()
+    // const outGeoJson = {}
+    // const sentiment = []
+    // const coords = []
 
-    for (const key in poemList) {
-      const aPoem = poemList[key]
-      aPoem.sentm = computeSentiment(aPoem.poem)
-      sentiment.push(aPoem.sentm)
-      coords.push([aPoem.lat, aPoem.long])
-    }
+    // for (const key in poemList) {
+    //   const aPoem = poemList[key]
+    //   aPoem.sentm = computeSentiment(aPoem.poem)
+    //   sentiment.push(aPoem.sentm)
+    //   coords.push([aPoem.lat, aPoem.long])
+    // }
 
-    outGeoJson.type = 'Feature'
-    outGeoJson.properties = sentiment
-    outGeoJson.geometry = ({ type: 'Point', coordinates: coords })
+    // outGeoJson.type = 'Feature'
+    // outGeoJson.properties = sentiment
+    // outGeoJson.geometry = ({ type: 'Point', coordinates: coords })
 
-    res.send({
-      outGeoJson,
-      msg: 'sentiment geojson sent'
-    })
+    // res.send({
+    //   outGeoJson,
+    //   msg: 'sentiment geojson sent'
+    // })
 })
 
 module.exports = router

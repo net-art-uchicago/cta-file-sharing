@@ -9,7 +9,7 @@ const map = new mapboxgl.Map({
 map.on('load', () => {
   map.addSource('cta', {
     type: 'geojson',
-    data: './data/cta.geojson'
+    data: './data/cta.geojson' // Bus stops in Chicago --> test data
     // data: './data/testData.geojson'
   })
   map.addSource('places', {
@@ -59,6 +59,8 @@ map.on('load', () => {
   })
 
   // Add a layer displaying sentiment as a heatmap
+  // When the data source is switched over to poem sentiment
+  // Must use: https://github.com/Rylern/TemperatureMap
   map.addLayer(
     {
       id: 'Sentiment',
@@ -201,6 +203,7 @@ map.on('load', () => {
   })
 })
 
+//ADDING THE SENTIMENT LAYER TOGGLE BUTTON
 // After the last frame rendered before the map enters an "idle" state.
 map.on('idle', () => {
   // If these two layers were not added to the map, abort
