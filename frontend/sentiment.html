@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sentiment Analysis: Proof of Concept</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    input {
+      width: 80%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      box-sizing: border-box;
+      border: 2px solid black;
+      font-size: 16px;
+    }
+    @media (max-width: 600px) {
+      input {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Sentiment Analysis: Proof of Concept</h1>
+  <form onsubmit="return submitForm();">
+    <input type="text" id="input" placeholder="input text"><br><br>
+    <input type="submit" value="Submit">
+  </form>
+  <script>
+    async function getSentiment () {
+      const res = await window.fetch('api/get-sentiment}')
+      const data = await res.json()
+      console.log(res)
+      console.log('API REQUEST SUCCESFUL')
+      return data
+    }
+    function submitForm() {
+      // Get the value of the input field
+      var inputValue = document.getElementById('input').value
+
+      // Print the input value in the console
+      console.log(getSentimnet(inputValue))
+
+      // Return false to prevent the form from being submitted
+      return false;
+    }
+
+  </script>
+</body>
+</html>
+
+

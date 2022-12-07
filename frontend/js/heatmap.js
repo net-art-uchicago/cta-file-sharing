@@ -1,3 +1,16 @@
+async function getSentiment () {
+  const res = await window.fetch('api/get-sentiment}')
+  const data = await res.json()
+  // chosenRoute = r
+  console.log(res)
+  console.log('API REQUEST SUCCESFUL')
+  return data
+}
+getSentiment()
+
+
+
+
 mapboxgl.accessToken = 'pk.eyJ1IjoiYW5kcmV3c2NvaGVuIiwiYSI6ImNsYWlydHpkZjA1NjUzbnA4MWFyOHZqd24ifQ.2taNnYIsG1csIs8QmJ45SQ'
 const map = new mapboxgl.Map({
   container: 'map',
