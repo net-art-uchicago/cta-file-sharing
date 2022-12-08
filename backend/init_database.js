@@ -9,13 +9,37 @@ if (!fs.existsSync(dbpath)) {
   console.log('New file created')
 }
 
+function validPoem (poem) {
+  if (typeof poem.text !== 'string') {
+    return 'error: the poem should be a string'
+  } else if (typeof poem.location[0] !== 'number' || typeof poem.location[1] !== 'number') {
+    return 'error: latitute and longitude should be numbers'
+  } else if (typeof poem.author !== 'string') {
+    return 'error: author should be a string'
+  } else if (typeof poem.route !== 'number') {
+    return 'error: route should be a number'
+  } else if (typeof poem.datetime !== 'number') {
+    return 'error: date should be number'
+  } else {
+    return 'success'
+  }
+}
+
 function addPoem (poem) {
   const db = require(dbpath)
-  db.push(poem)
-  fs.writeFile(dbpath, JSON.stringify(db, null, 2), err => {
-    if (err) throw err
-    console.log('Done writing') // Success
-  })
+  const msg = validPoem(poem)
+  if (msg === 'success') {
+    db.push(poem)
+    fs.writeFileSync(dbpath, JSON.stringify(db, null, 2))
+    return { message: msg }
+  } else {
+    return { message: 'error', error: msg }
+  }
+}
+
+function allPoems () {
+  const db = require(dbpath)
+  return db
 }
 
 function findPoemsByLoc (lat, long, radius) {
@@ -64,6 +88,8 @@ function findPoemsByRoute (route) {
 
 module.exports = {
   addPoem,
+  validPoem,
+  allPoems,
   findPoemsByLoc,
   findPoemsByAuthor,
   findPoemsByDate,

@@ -61,8 +61,13 @@ function authorEntered (e) {
     datetime: Date.now(), // number, unicode timestamp
     location: [crd.latitude, crd.longitude], // Array of GPS coordinates
     text: poem, // string
+<<<<<<< HEAD
     author, // string,
     route: chosenRoute // number, a bus route
+=======
+    author: author, // string,
+    route: Number(chosenRoute) // number, a bus route
+>>>>>>> e6bc869222e3eb65379520b2ce0769ce959bf945
   })
 }
 
@@ -119,7 +124,7 @@ async function postPoem (poemObj) {
   const json = await res.json()
 
   if (json.message === 'success') {
-    window.location = '/page2'
+    window.location = '/poems'
   } else {
     // TODO: fallback message if something went wrong?
   }
