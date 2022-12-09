@@ -14,7 +14,7 @@ function getPoems () {
   const req = { method: 'GET' }
   fetch('poems.json', req)
     .then(res => res.json())
-    .then(data => displayData(data))
+    .then(data => displayData(data.poemList))
     .catch(err => console.log('error: ' + err))
 }
 
@@ -35,6 +35,7 @@ function displayData (data) {
       <br><br> ✩ where: ${mapslink}
       <br> ✩ when: ${datetime}
       <br> ✩ route ${data[rand].route}`
+
     setTimeout(function () {
       addBubble(text, 'bubble')
       i++
