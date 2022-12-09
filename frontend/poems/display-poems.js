@@ -27,7 +27,7 @@ function displayData (data) {
   let i = 0
   function myLoop () {
     const rand = Math.floor(Math.random() * data.length)
-    const mapslink = `<a href="https://www.google.com/maps/?q=${data[rand].lat},${data[rand].long}" target="_blank">location</a>`
+    const mapslink = `<a href="https://www.google.com/maps/?q=${data[rand].location}" target="_blank">location</a>`
     const datetime = `${new Date(data[rand].date).toLocaleString()}`
 
     const text = `<b>${data[rand].text}</b> 
