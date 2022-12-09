@@ -18,26 +18,32 @@ function getPoems () {
     .catch(err => console.log('error: ' + err))
 }
 
+function displayLinks () {
+  const div = '<a href="/frontend/map.html"> click here to access the map </a>'
+  addBubble(div, 'bubble2')
+}
+
 function displayData (data) {
-  var i = 0
-  function myLoop(){
-    let rand = Math.floor(Math.random() * data.length)
-    let text = `<b>${data[rand].poem}</b> 
+  let i = 0
+  function myLoop () {
+    const rand = Math.floor(Math.random() * data.length)
+    const mapslink = `<a href="https://www.google.com/maps/?q=${data[rand].lat},${data[rand].long}" target="_blank">location</a>`
+    const datetime = `${new Date(data[rand].date).toLocaleString()}`
+
+    const text = `<b>${data[rand].text}</b> 
       <br><br> ...signed <b>${data[rand].author}</b> 
-      <br><br> ✩ (${data[rand].lat}, ${data[rand].long})
-      <br> ✩ date... ${(data[rand].date)}
-      <br> ✩ route... ${data[rand].route}`
-    setTimeout(function() {
-      addBubble(text, "bubble")
+      <br><br> ✩ where: ${mapslink}
+      <br> ✩ when: ${datetime}
+      <br> ✩ route ${data[rand].route}`
+    setTimeout(function () {
+      addBubble(text, 'bubble')
       i++
-      if (i < 3){
+      if (i < 3) {
         myLoop()
+      } else {
+        displayLinks()
       }
     }, 3000)
   }
-
   myLoop()
-
 }
-
-
