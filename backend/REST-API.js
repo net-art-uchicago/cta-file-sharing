@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 
+const Sentiment = require('sentiment')
+
 const {
   allPoems
 } = require('./rest-api-test-data.js')
@@ -84,14 +86,15 @@ router.get('/api/poems', (req, res) => {
   })
 })
 
-router.post('/api/get-sentiment', (req, res) => {
-  // Sentiment Analysis package (installed from npm)
-  async function computeSentiment (text) {
-    const Sentiment = require('sentiment')
-    const sentiment = new Sentiment()
-    const result = sentiment.analyze(text)
-    return (result.comparative)
-  }
+router.get('/api/get-sentiment', (req, res) => {
+  const sentiment = new Sentiment()
+  const result = sentiment.analyze(req.query.text)
+  res.send({
+    result,
+    msg: 'sentiment sent'
+  })
+})
+
 // CODE BELOW IS FOR CONVERTING SENTIMENT DATA + POEMS INTO GEOJSON FOR HEATMAP
 // Run Sentiment Analysis on the Poems and convert out poem JSON to a GEOJSON for Mapping
     // poemList = allPoems()
@@ -114,6 +117,6 @@ router.post('/api/get-sentiment', (req, res) => {
     //   outGeoJson,
     //   msg: 'sentiment geojson sent'
     // })
-})
+// })
 
 module.exports = router
