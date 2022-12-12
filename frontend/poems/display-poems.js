@@ -12,7 +12,7 @@ function addBubble (html, side) {
 
 function getPoems () {
   const req = { method: 'GET' }
-  fetch('poems.json', req)
+  fetch('/api/poems', req)
     .then(res => res.json())
     .then(data => displayData(data.poemList))
     .catch(err => console.log('error: ' + err))
@@ -28,7 +28,7 @@ function displayData (data) {
   function myLoop () {
     const rand = Math.floor(Math.random() * data.length)
     const mapslink = `<a href="https://www.google.com/maps/?q=${data[rand].location}" target="_blank">location</a>`
-    const datetime = `${new Date(data[rand].date).toLocaleString()}`
+    const datetime = `${new Date(data[rand].datetime).toLocaleString()}`
 
     const text = `<b>${data[rand].text}</b> 
       <br><br> ...signed <b>${data[rand].author}</b> 
