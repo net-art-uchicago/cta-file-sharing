@@ -20,11 +20,12 @@ function getPoems () {
 
 function appendData (data) {
   const mainCont = document.querySelector('#poem')
-  for (let i = 0; i < all.length; i++) {
+
+  for (let i = 0; i < data.length; i++) {
     const div = document.createElement('div')
     div.innerHTML = `${data[i].text} ...signed ${data[i].author} --
                         ${data[i].location} -- ${data[i].datetime}
-                        -- ROUTE ${all[i].route}`
+                        -- ROUTE ${data[i].route}`
     mainCont.appendChild(div)
   }
 }
