@@ -5,6 +5,7 @@ package-lock.json
 .DS_Store
 
 #database file
+backend/database.json
 database.json
 
 # Logs
@@ -111,4 +112,3 @@ dist
 
 # TernJS port file
 .tern-port
-
