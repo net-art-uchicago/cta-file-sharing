@@ -8,6 +8,13 @@ body { margin: 0; padding: 0; }
 #poem {
     font-size: 12px;
     font-family: sans-serif;
+    line-height: 50px;
+    z-index: 1000;
+    color: white;
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+    font-family: "Arial Black", Gadget, sans-serif;
 }
 
 #time {

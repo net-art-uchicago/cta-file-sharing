@@ -61,13 +61,8 @@ function authorEntered (e) {
     datetime: Date.now(), // number, unicode timestamp
     location: [crd.latitude, crd.longitude], // Array of GPS coordinates
     text: poem, // string
-<<<<<<< HEAD
-    author, // string,
-    route: chosenRoute // number, a bus route
-=======
     author: author, // string,
     route: Number(chosenRoute) // number, a bus route
->>>>>>> e6bc869222e3eb65379520b2ce0769ce959bf945
   })
 }
 
@@ -89,7 +84,7 @@ async function getRoutes () {
     getClosestDistance(route)
   })
 
-  for (let i = 0; i < data.routes.length;) {
+  for (let i = 0; i < data.routes.length; i++) {
     const option = document.createElement('option')
     option.value = data.routes[i]
     option.innerText = data.routes[i]
