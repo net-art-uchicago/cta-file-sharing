@@ -12,20 +12,39 @@ function addBubble (html, side) {
 
 function getPoems () {
   const req = { method: 'GET' }
-  fetch('poems.json', req)
+  fetch('/api/poems', req)
     .then(res => res.json())
-    .then(data => appendData(data))
+    .then(data => displayData(data.poemList))
     .catch(err => console.log('error: ' + err))
 }
 
-function appendData (data) {
-  const mainCont = document.querySelector('#poem')
+function displayLinks () {
+  const div = '<a href="/frontend/map.html"> click here to access the map </a>'
+  addBubble(div, 'bubble2')
+}
 
-  for (let i = 0; i < data.length; i++) {
-    const div = document.createElement('div')
-    div.innerHTML = `${data[i].text} ...signed ${data[i].author} --
-                        ${data[i].location} -- ${data[i].datetime}
-                        -- ROUTE ${data[i].route}`
-    mainCont.appendChild(div)
+function displayData (data) {
+  let i = 0
+  function myLoop () {
+    const rand = Math.floor(Math.random() * data.length)
+    const mapslink = `<a href="https://www.google.com/maps/?q=${data[rand].location}" target="_blank">location</a>`
+    const datetime = `${new Date(data[rand].datetime).toLocaleString()}`
+
+    const text = `<b>${data[rand].text}</b> 
+      <br><br> ...signed <b>${data[rand].author}</b> 
+      <br><br> ✩ where: ${mapslink}
+      <br> ✩ when: ${datetime}
+      <br> ✩ route ${data[rand].route}`
+
+    setTimeout(function () {
+      addBubble(text, 'bubble')
+      i++
+      if (i < 3) {
+        myLoop()
+      } else {
+        displayLinks()
+      }
+    }, 3000)
   }
+  myLoop()
 }
