@@ -1,6 +1,4 @@
 getPoems()
-let all
-startGather()
 
 function addBubble (html, side) {
   const p = document.createElement('p')
@@ -12,25 +10,20 @@ function addBubble (html, side) {
   }, 100)
 }
 
-function startGather () {
-  setTimeout(() => addBubble(prompts.whoIs, 'bubble'), 500)
+function getPoems () {
+  const req = { method: 'GET' }
+  fetch('poems.json', req)
+    .then(res => res.json())
+    .then(data => appendData(data))
+    .catch(err => console.log('error: ' + err))
 }
 
-async function getPoems () {
-  const req = await fetch('/api/poems')
-  const data = await req.json()
-    .catch(err => console.log('error: ' + err))
-  const present = Date.now()
-  all = data.poemList.filter(p => p.datetime < present)
-  appendData()
-}
-// update html page
-function appendData () {
+function appendData (data) {
   const mainCont = document.querySelector('#poem')
   for (let i = 0; i < all.length; i++) {
     const div = document.createElement('div')
-    div.innerHTML = `${all[i].text} ...signed ${all[i].author} --
-                        ${all[i].location} -- ${all[i].datetime}
+    div.innerHTML = `${data[i].text} ...signed ${data[i].author} --
+                        ${data[i].location} -- ${data[i].datetime}
                         -- ROUTE ${all[i].route}`
     mainCont.appendChild(div)
   }
