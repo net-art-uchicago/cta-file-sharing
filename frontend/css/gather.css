@@ -1,8 +1,15 @@
 body { margin: 0; padding: 0; }
 
-#name {
-    font-size: 50px;
-    font-family: sans-serif;
+#author {
+  top: 40px;
+  line-height: 50px;
+  z-index: 1000;
+  color: white;
+  font-size: 20px;
+  font-family: sans-serif;
+  width: 50%;
+  text-align: center;
+  pointer-events: none;
 }
 
 #poem {
@@ -14,7 +21,7 @@ body { margin: 0; padding: 0; }
     font-size: 20px;
     width: 100%;
     text-align: center;
-    font-family: "Arial Black", Gadget, sans-serif;
+    font-style: italic;
 }
 
 #time {
@@ -33,6 +40,7 @@ body { margin: 0; padding: 0; }
   }
   
   .usage {
+    font-family: sans-serif;
     position: absolute;
     top: 40px;
     line-height: 50px;
@@ -41,13 +49,12 @@ body { margin: 0; padding: 0; }
     font-size: 20px;
     width: 100%;
     text-align: center;
-    font-family: "Arial Black", Gadget, sans-serif;
     pointer-events: none;
   }
   
   h1{
     color: white;
-    font-family: arial;
+    font-family: sans-serif;
     font-weight: bold;
     font-size: 3em;
   }
