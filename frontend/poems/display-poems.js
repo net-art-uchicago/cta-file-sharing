@@ -30,8 +30,8 @@ function displayData (data) {
     const mapslink = `<a href="https://www.google.com/maps/?q=${data[rand].location}" target="_blank">location</a>`
     const datetime = `${new Date(data[rand].datetime).toLocaleString()}`
 
-    const text = `<b>${data[rand].text}</b> 
-      <br><br> ...signed <b>${data[rand].author}</b> 
+    const text = `<b>${data[rand].text}</b>
+      <br><br> ...signed <b>${data[rand].author}</b>
       <br><br> ✩ where: ${mapslink}
       <br> ✩ when: ${datetime}
       <br> ✩ route ${data[rand].route}`

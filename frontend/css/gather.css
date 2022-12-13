@@ -1,21 +1,71 @@
-#name {
-    font-size: 50px;
-    font-family: sans-serif;
+body { margin: 0; padding: 0; }
+
+#author {
+  top: 40px;
+  line-height: 50px;
+  z-index: 1000;
+  color: white;
+  font-size: 20px;
+  font-family: sans-serif;
+  width: 50%;
+  text-align: center;
+  pointer-events: none;
 }
+
 #poem {
     font-size: 12px;
     font-family: sans-serif;
+    line-height: 50px;
+    z-index: 1000;
+    color: white;
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+    font-style: italic;
 }
+
 #time {
     font-size: 40px;
     font-family: sans-serif;
 }
-.footer {
+
+.page {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .usage {
+    font-family: sans-serif;
+    position: absolute;
+    top: 40px;
+    line-height: 50px;
+    z-index: 1000;
+    color: white;
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+    pointer-events: none;
+  }
+  
+  h1{
+    color: white;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 3em;
+  }
+  
+  .footer {
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
     background-color: rgb(187, 187, 187);
-    color: white;
+    color: rgb(255, 74, 74);
     text-align: center; 
 }
+  
